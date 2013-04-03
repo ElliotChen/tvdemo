@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<constant name="struts.ognl.allowStaticMethodAccess" value="true" />
+	<package abstract="true" name="default" extends="struts-default">
+		<result-types>
+			<result-type name="json" class="org.apache.struts2.json.JSONResult" />
+			<result-type name="tiles" class="org.apache.struts2.views.tiles.TilesResult" />
+		</result-types>
+
+		<default-interceptor-ref name="paramsPrepareParamsStack" />
+		<default-action-ref name="defaultAction" />
+		<global-results>
+			<result name="404">/WEB-INF/jsp/exception/404.jsp</result>
+			<result name="500">/WEB-INF/jsp/exception/500.jsp</result>
+			<result name="json" type="json">
+				<param name="root">jsonObject</param>
+			</result>
+		</global-results>
+		<global-exception-mappings>
+			<exception-mapping result="500" exception="java.lang.Exception" />
+		</global-exception-mappings>
+		<!-- <action name="defaultAction" method="index" class="defaultAction"> <result 
+			name="404" /> </action> -->
+	</package>
+
+	<package name="root" extends="default" namespace="/">
+		<action name="index" method="index" class="indexAction">
+			<result name="index" type="tiles">index</result>
+		</action>
+	</package>
+
+	<include file="struts/struts-admin.xml" />
+</struts>
