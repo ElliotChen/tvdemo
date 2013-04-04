@@ -28,6 +28,10 @@ public abstract class AbstractSeqIdObject implements Identifiable<Long> {
 
 	@Override
 	public void setOid(Long oid) {
+		if (oid != null && oid == 0L) {
+			this.oid = null;
+			return;
+		}
 		this.oid = oid;
 	}
 

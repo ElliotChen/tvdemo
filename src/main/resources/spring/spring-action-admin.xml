@@ -5,7 +5,7 @@
 	<bean id="indexAction" class="tw.com.tradevan.web.action.DefaultAction"></bean>
 	<bean id="demoAction" class="tw.com.tradevan.web.action.DemoAction">
 	</bean>
-	<bean id="userAction" class="tw.com.tradevan.web.action.UserAction">
+	<bean id="userAction" class="tw.com.tradevan.web.action.UserAction" scope="prototype">
 		<property name="manager" ref="userManager" />
 	</bean>
 </beans>

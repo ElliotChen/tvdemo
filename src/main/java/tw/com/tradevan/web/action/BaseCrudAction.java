@@ -9,6 +9,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import tw.com.tradevan.core.dao.BaseDao;
+import tw.com.tradevan.core.domain.Identifiable;
+import tw.com.tradevan.core.domain.support.Page;
 import tw.com.tradevan.core.service.EntityManager;
 import tw.com.tradevan.domain.User;
 import tw.com.tradevan.web.kendo.DataSourceResult;
@@ -16,7 +18,7 @@ import tw.com.tradevan.web.kendo.DataSourceResult;
 import com.opensymphony.xwork2.ModelDriven;
 import com.opensymphony.xwork2.Preparable;
 
-public class BaseCrudAction<Entity, Oid extends Serializable, Dao extends BaseDao<Entity, Oid>, Manager extends EntityManager<Entity, Oid, Dao>>
+public abstract class BaseCrudAction<Entity extends Identifiable<Oid>, Oid extends Serializable, Dao extends BaseDao<Entity, Oid>, Manager extends EntityManager<Entity, Oid, Dao>>
 		extends BaseAction implements Preparable, ModelDriven<Entity> {
 	private static final Logger logger = LoggerFactory.getLogger(BaseCrudAction.class);
 	protected Manager manager;
@@ -24,9 +26,13 @@ public class BaseCrudAction<Entity, Oid extends Serializable, Dao extends BaseDa
 	protected Entity example;
 	protected Entity entity;
 	
-	private String orderby;
-	private Integer top;
-	private Integer skip;
+	/*KendoUI Grid Parameter*/
+	protected String orderby;
+	protected Integer top;
+	protected Integer skip;
+	protected Integer page;
+	protected Integer pageSize;
+	
 	public Manager getManager() {
 		return manager;
 	}
@@ -82,18 +88,55 @@ public class BaseCrudAction<Entity, Oid extends Serializable, Dao extends BaseDa
 	public void setSkip(Integer skip) {
 		this.skip = skip;
 	}
+	
+	public Integer getPage() {
+		return page;
+	}
 
+	public void setPage(Integer page) {
+		this.page = page;
+	}
+
+	public Integer getPageSize() {
+		return pageSize;
+	}
+
+	public void setPageSize(Integer pageSize) {
+		this.pageSize = pageSize;
+	}
+
+	/*******************************************************************/
+	/**                Struts Override Method                         **/
+	/*******************************************************************/
 	@Override
 	public void prepare() throws Exception {
+		this.getLogger().debug("prepare : oid[{}], entity[{}]",oid, entity);
+		if (oid != null) {
+			entity = manager.findByOid(oid);
+		} else {
+			oid = manager.newOidInstance();
+			entity = manager.newEntityInstance();
+			Oid entityOid = manager.newOidInstance();
+			entity.setOid(entityOid);
+		}
+		//Init example for QBE
 		example = manager.newEntityInstance();
-		entity = manager.newEntityInstance();
-		logger.error("Info : top {}, orderby {}", top, orderby);
+		Oid exampleOid = manager.newOidInstance();
+		example.setOid(exampleOid);
+		this.getLogger().debug("after prepare : oid[{}], entity[{}]",oid, entity);
+
+		postPrepare();
 	}
 	
 	@Override
 	public Entity getModel() {
 		return entity;
 	}
+	
+	protected void postPrepare() {
+		//dose nothing.
+	}
+	
 	/*******************************************************************/
 	/**                         Action Method                         **/
 	/*******************************************************************/
@@ -103,14 +146,61 @@ public class BaseCrudAction<Entity, Oid extends Serializable, Dao extends BaseDa
 	}
 
 	public String ajaxPageSearch() {
+		/*
 		List<User> list = new ArrayList<User>();
 		list.add(new User("A", new Date()));
 		list.add(new User("B", new Date()));
 		DataSourceResult dsr = new DataSourceResult();
 		dsr.setTotal(1000);
 		dsr.setData(list);
+		
+		*/
+		Page<Entity> sp = initPage();
+		sp = this.manager.listByPage(sp);
+		DataSourceResult dsr = new DataSourceResult();
+		dsr.setData(sp.getResult());
+		dsr.setTotal(sp.getTotalCount());
 		this.setJsonObject(dsr);
 		return JSON;
 	}
 	
+	
+	public String loadCreateForm() {
+		return "create";
+	}
+	
+	public String loadEditForm() {
+		return "edit";
+	}
+	
+	public String create() {
+		logger.debug("CREATE Entity[{}]", entity);
+		this.manager.create(entity);
+		return JSON;
+	}
+
+	public String update() {
+		logger.debug("UPDATE Entity[{}]", entity);
+		this.manager.saveOrUpdate(entity);
+		return JSON;
+	}
+	
+	protected Page<Entity> initPage() {
+		this.getLogger().debug("Info : page {}, pageSize {}", page, pageSize);
+		this.getLogger().debug("OID : [{}]", example.getOid());
+		Page<Entity> sp = new Page<Entity>();
+		sp.setExample(example);
+		
+		if (pageSize != null) {
+			sp.setPageSize(pageSize);
+			if (page != null) {
+				sp.setPageNo(page);
+			}
+		} else {
+			sp.setPageNo(1);
+		}
+		
+		
+		return sp;
+	}
 }

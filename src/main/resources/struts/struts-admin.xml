@@ -6,6 +6,8 @@
 	<package name="admin" extends="default" namespace="/admin">
 	    <action name="*!*" method="{2}" class="{1}Action">
 	        <result name="index">/WEB-INF/jsp/admin/{1}/index.jsp</result>
+	        <result name="create">/WEB-INF/jsp/admin/{1}/create.jsp</result>
+	        <result name="edit">/WEB-INF/jsp/admin/{1}/edit.jsp</result>
 	    </action>
 	</package>
 </struts>

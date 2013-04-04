@@ -20,15 +20,15 @@ public class User extends AbstractStrOidAuditable {
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "BIRTH_DAY")
-	private Date birthDay;
+	private Date birthday;
 
 	public User() {
 		super();
 	}
 
-	public User(String name, Date birthDay) {
+	public User(String name, Date birthday) {
 		this.name = name;
-		this.birthDay = birthDay;
+		this.birthday = birthday;
 	}
 
 
@@ -40,12 +40,12 @@ public class User extends AbstractStrOidAuditable {
 		this.name = name;
 	}
 
-	public Date getBirthDay() {
-		return birthDay;
+	public Date getBirthday() {
+		return birthday;
 	}
 
-	public void setBirthDay(Date birthDay) {
-		this.birthDay = birthDay;
+	public void setBirthday(Date birthday) {
+		this.birthday = birthday;
 	}
 
 }

@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
+import org.apache.commons.lang.StringUtils;
 import org.hibernate.annotations.GenericGenerator;
 
 @MappedSuperclass
@@ -24,6 +25,11 @@ public abstract class AbstractStrOIdObject implements Identifiable<String> {
 	}
 
 	public void setOid(String oid) {
+		if (StringUtils.isEmpty(oid)) {
+			this.oid = null;
+			return;
+		}
+		
 		this.oid = oid;
 	}
 }

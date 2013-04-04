@@ -3,6 +3,8 @@ package tw.com.tradevan.core.domain;
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+
+import org.apache.commons.lang.StringUtils;
 /**
  * Assigned Oid
  * @author elliot
@@ -23,6 +25,11 @@ public abstract class AbstractOIdObject implements Identifiable<String> {
 	}
 
 	public void setOid(String oid) {
+		if (StringUtils.isEmpty(oid)) {
+			this.oid = null;
+			return;
+		}
+		
 		this.oid = oid;
 	}
 }
