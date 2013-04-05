@@ -17,9 +17,9 @@
 		}).data("kendoWindow");
 		mGrid = $("#masterGrid").kendoGrid({
 			columns : [ 
-				{ field : "oid" }, 
 				{ field : "name" }, 
-				{ field : "birthday" },
+				{ field : "year" }, 
+				{ field : "note" },
 				//{ command: ["edit", "destory"] }
 				{ command : [ {text : "Edit", click : loadEditForm},
 				              {text : "Delete", click : deleteEntity}]}
@@ -29,7 +29,7 @@
 				transport : {
 					read : function(options) {
 						$.ajax( {
-			                url: "${ctx}/admin/user!ajaxPageSearch.action",
+			                url: "${ctx}/admin/book!ajaxPageSearch.action",
 			                type: "POST",
 			                data: $.param(options.data)+"&"+$("#searchForm").serialize(), // the "data" field contains paging, sorting, filtering and grouping data
 			                success: function(result) {
@@ -51,10 +51,9 @@
 					model : {
 						id : "Oid",
 						fields : {
-							Oid : { type : "string" },
 							Name : { type : "string" },
-							Birthday : { type : "string" }, 
-							CreatedAccount : { type : "string" }
+							Year : { type : "string" },
+							Note : { type : "string" }
 						}
 					}
 				},
@@ -75,7 +74,7 @@
 		//var kw = $("#createForm").data("kendoWindow");
 		
 		$.ajax({
-			  url: '${ctx}/admin/user!loadCreateForm.action',
+			  url: '${ctx}/admin/book!loadCreateForm.action',
 			  type: 'POST',
 			  dataType: 'html',
 			  success: function(data, textStatus, xhr) {
@@ -99,7 +98,7 @@
 	function loadEditForm(e) {
 		var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
 		$.ajax({
-			  url: '${ctx}/admin/user!loadEditForm.action',
+			  url: '${ctx}/admin/book!loadEditForm.action',
 			  type: 'POST',
 			  dataType: 'html',
 			  data : {oid:dataItem.oid},
@@ -124,7 +123,7 @@
 	function deleteEntity(e) {
 		var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
 		$.ajax({
-			  url: '${ctx}/admin/user!delete.action',
+			  url: '${ctx}/admin/book!delete.action',
 			  type: 'POST',
 			  dataType: 'json',
 			  data : {oid:dataItem.oid},
@@ -151,10 +150,16 @@
 <div class="k-content">
 	<div id="search" class="editForm">
 		<form method="POST" id="searchForm">
-			<h3>Search User:</h3>
+			<h3>Search Book:</h3>
 			<ul>
-				<li><label for="name">Name:</label> <input type="text"
-					id="name" name="example.name" class="k-textbox" /></li>
+				<li>
+					<label for="name">Name:</label>
+					<input type="text" id="name" name="example.oid.name" class="k-textbox" />
+				</li>
+				<li>
+					<label for="year">Year:</label>
+					<input type="text" id="year" name="example.oid.year" class="k-textbox" />
+				</li>
 				<li>
 					<a href="#" class="k-button" onclick="reloadGrid()">Search</a>
 				</li>

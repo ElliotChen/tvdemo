@@ -8,4 +8,5 @@
 	</bean>
 	
 	<bean id="userDao" class="tw.com.tradevan.dao.impl.UserDaoImpl" parent="dao" />
+	<bean id="bookDao" class="tw.com.tradevan.dao.impl.BookDaoImpl" parent="dao" />
 </beans>

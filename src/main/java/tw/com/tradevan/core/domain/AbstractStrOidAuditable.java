@@ -9,7 +9,7 @@ import javax.persistence.TemporalType;
 import javax.persistence.Version;
 
 @MappedSuperclass
-public abstract class AbstractStrOidAuditable extends AbstractStrOIdObject implements Auditable {
+public abstract class AbstractStrOidAuditable extends AbstractStrOidObject implements Auditable {
 
 	private static final long serialVersionUID = -3490361723232389466L;
 

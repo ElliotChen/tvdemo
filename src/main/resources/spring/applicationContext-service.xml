@@ -6,4 +6,8 @@
 	<bean id="userManager" class="tw.com.tradevan.service.impl.UserManagerImpl">
 		<property name="dao" ref="userDao" />
 	</bean>
+	
+	<bean id="bookManager" class="tw.com.tradevan.service.impl.BookManagerImpl">
+		<property name="dao" ref="bookDao" />
+	</bean>
 </beans>

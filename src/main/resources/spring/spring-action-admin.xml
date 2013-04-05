@@ -8,4 +8,7 @@
 	<bean id="userAction" class="tw.com.tradevan.web.action.UserAction" scope="prototype">
 		<property name="manager" ref="userManager" />
 	</bean>
+	<bean id="bookAction" class="tw.com.tradevan.web.action.BookAction" scope="prototype">
+		<property name="manager" ref="bookManager" />
+	</bean>
 </beans>

@@ -4,6 +4,8 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -19,9 +21,16 @@ public class User extends AbstractStrOidAuditable {
 	private String name;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "BIRTH_DAY")
+	@Column(name = "BIRTHDAY")
 	private Date birthday;
 
+	
+	@Column(name = "ADMIN")
+	private Boolean admin;
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name = "GENDER")
+	private Gender gener;
 	public User() {
 		super();
 	}
@@ -48,5 +57,21 @@ public class User extends AbstractStrOidAuditable {
 		this.birthday = birthday;
 	}
 
+	public Boolean getAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(Boolean admin) {
+		this.admin = admin;
+	}
+
+	public Gender getGener() {
+		return gener;
+	}
+
+	public void setGener(Gender gener) {
+		this.gener = gener;
+	}
+	
 }
 

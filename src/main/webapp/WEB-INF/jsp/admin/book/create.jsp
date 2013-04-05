@@ -5,7 +5,8 @@
 		$("#createForm").validate({
 			rules : {
 				'name' : {required:true},
-				'birthday' : {required:true}
+				'year' : {required:true},
+				'note' : {required:true}
 			},
 			submitHandler : function(form) {
 				$(form).ajaxSubmit({success:ajaxCreateSuccess});
@@ -19,16 +20,20 @@
 		closeCreateForm(responseText); //defined by index.jsp
 	}
 </script>
-<s:form id="createForm" method="POST" name="createForm" action="/admin/user!create">
+<s:form id="createForm" method="POST" name="createForm" action="/admin/book!create">
 <h3>Create User</h3>
 <ul>
 	<li>
 		<label for="c_name">Name</label>
-		<s:textfield name="name" id="c_name"/>
+		<s:textfield name="oid.name" id="c_name"/>
 	</li>
 	<li>
-		<label for="c_birthday">Birthday</label>
-		<s:textfield name="birthday" id="c_birthday" cssClass="date"/>
+		<label for="c_year">Year</label>
+		<s:textfield name="oid.year" id="c_year"/>
+	</li>
+	<li>
+		<label for="c_note">Note</label>
+		<s:textfield name="note" id="c_note"/>
 	</li>
 	<li>
 		<input type="submit" class="k-button" value="SEND"/>

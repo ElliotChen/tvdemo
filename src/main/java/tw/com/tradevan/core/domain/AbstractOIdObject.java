@@ -11,7 +11,7 @@ import org.apache.commons.lang.StringUtils;
  *
  */
 @MappedSuperclass
-public abstract class AbstractOIdObject implements Identifiable<String> {
+public abstract class AbstractOidObject implements Identifiable<String> {
 
 	private static final long serialVersionUID = -1702181490872061369L;
 

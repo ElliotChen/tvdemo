@@ -16,7 +16,7 @@
 	});
 	
 	function ajaxEditSuccess(responseText, statusText, xhr, $form) {
-		closeEditForm(responseText);
+		closeEditForm(responseText); //defined by index.jsp
 	}
 </script>
 <s:form id="editForm" name="editForm" action="/admin/user!update">

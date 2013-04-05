@@ -2,33 +2,34 @@
 <%@ include file="/WEB-INF/jsp/common/base.jsp"%>
 <script>
 	$(document).ready(function() {
-		$("#createForm").validate({
+		$("#editForm").validate({
 			rules : {
 				'name' : {required:true},
-				'birthday' : {required:true}
+				'year' : {required:true}
 			},
 			submitHandler : function(form) {
-				$(form).ajaxSubmit({success:ajaxCreateSuccess});
+				$(form).ajaxSubmit({success : ajaxEditSuccess});
 			}
 		});
 		
 		$(".date").kendoDatePicker({format: "yyyy/MM/dd"});
 	});
 	
-	function ajaxCreateSuccess(responseText, statusText, xhr, $form) {
-		closeCreateForm(responseText); //defined by index.jsp
+	function ajaxEditSuccess(responseText, statusText, xhr, $form) {
+		closeEditForm(responseText); //defined by index.jsp
 	}
 </script>
-<s:form id="createForm" method="POST" name="createForm" action="/admin/user!create">
-<h3>Create User</h3>
+<s:form id="editForm" name="editForm" action="/admin/user!update">
+	<s:hidden name="oid" />
+<h3>Edit User</h3>
 <ul>
 	<li>
-		<label for="c_name">Name</label>
-		<s:textfield name="name" id="c_name"/>
+		<label for="e_name">Name</label>
+		<s:textfield name="name" id="e_name" />
 	</li>
 	<li>
 		<label for="c_birthday">Birthday</label>
-		<s:textfield name="birthday" id="c_birthday" cssClass="date"/>
+		<s:textfield name="birthday" id="e_birthday" cssClass="date"/>
 	</li>
 	<li>
 		<input type="submit" class="k-button" value="SEND"/>

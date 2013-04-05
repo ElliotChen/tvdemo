@@ -1,9 +1,6 @@
 package tw.com.tradevan.web.action;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,14 +9,14 @@ import tw.com.tradevan.core.dao.BaseDao;
 import tw.com.tradevan.core.domain.Identifiable;
 import tw.com.tradevan.core.domain.support.Page;
 import tw.com.tradevan.core.service.EntityManager;
-import tw.com.tradevan.domain.User;
 import tw.com.tradevan.web.kendo.DataSourceResult;
 
 import com.opensymphony.xwork2.ModelDriven;
 import com.opensymphony.xwork2.Preparable;
 
 public abstract class BaseCrudAction<Entity extends Identifiable<Oid>, Oid extends Serializable, Dao extends BaseDao<Entity, Oid>, Manager extends EntityManager<Entity, Oid, Dao>>
-		extends BaseAction implements Preparable, ModelDriven<Entity> {
+		extends JsonSupportAction implements Preparable, ModelDriven<Entity> {
+	private static final long serialVersionUID = 4943140763463664219L;
 	private static final Logger logger = LoggerFactory.getLogger(BaseCrudAction.class);
 	protected Manager manager;
 	protected Oid oid;
@@ -28,6 +25,7 @@ public abstract class BaseCrudAction<Entity extends Identifiable<Oid>, Oid exten
 	
 	/*KendoUI Grid Parameter*/
 	protected String orderby;
+	protected String filter;
 	protected Integer top;
 	protected Integer skip;
 	protected Integer page;
@@ -105,6 +103,14 @@ public abstract class BaseCrudAction<Entity extends Identifiable<Oid>, Oid exten
 		this.pageSize = pageSize;
 	}
 
+	public String getFilter() {
+		return filter;
+	}
+
+	public void setFilter(String filter) {
+		this.filter = filter;
+	}
+
 	/*******************************************************************/
 	/**                Struts Override Method                         **/
 	/*******************************************************************/
@@ -123,7 +129,7 @@ public abstract class BaseCrudAction<Entity extends Identifiable<Oid>, Oid exten
 		example = manager.newEntityInstance();
 		Oid exampleOid = manager.newOidInstance();
 		example.setOid(exampleOid);
-		this.getLogger().debug("after prepare : oid[{}], entity[{}]",oid, entity);
+		this.getLogger().debug("after prepare : oid[{}], entity[{}], example[{}]",new Object[]{oid, entity, example});
 
 		postPrepare();
 	}
@@ -176,30 +182,45 @@ public abstract class BaseCrudAction<Entity extends Identifiable<Oid>, Oid exten
 	public String create() {
 		logger.debug("CREATE Entity[{}]", entity);
 		this.manager.create(entity);
+		
+		this.addActionMessage("Create Success!");
+		this.setJsonObject(this.getActionMessages());
 		return JSON;
 	}
 
 	public String update() {
 		logger.debug("UPDATE Entity[{}]", entity);
 		this.manager.saveOrUpdate(entity);
+		
+		this.addActionMessage("Update Success!");
+		this.setJsonObject(this.getActionMessages());
+		return JSON;
+	}
+	
+	public String delete() {
+		logger.debug("Delete Entity[{}]", entity);
+		this.manager.delete(entity);
+		
+		this.addActionMessage("Delete Success!");
+		this.setJsonObject(this.getActionMessages());
 		return JSON;
 	}
 	
 	protected Page<Entity> initPage() {
-		this.getLogger().debug("Info : page {}, pageSize {}", page, pageSize);
-		this.getLogger().debug("OID : [{}]", example.getOid());
+		this.getLogger().debug("Kendo Params : page {}, pageSize {}, orderby {}, filter{}", new Object[] {page, pageSize, orderby, filter});
+		this.getLogger().debug("Example : [{}]", example);
 		Page<Entity> sp = new Page<Entity>();
 		sp.setExample(example);
 		
 		if (pageSize != null) {
 			sp.setPageSize(pageSize);
-			if (page != null) {
-				sp.setPageNo(page);
-			}
+		}
+		
+		if (page != null) {
+			sp.setPageNo(page);
 		} else {
 			sp.setPageNo(1);
 		}
-		
 		
 		return sp;
 	}

@@ -8,7 +8,9 @@ import tw.com.tradevan.domain.User;
 import tw.com.tradevan.service.UserManager;
 
 public class UserAction extends BaseCrudAction<User, String, UserDao, UserManager> {
+	private static final long serialVersionUID = -5648499573250174891L;
 	private static final Logger logger = LoggerFactory.getLogger(UserAction.class);
+	
 	@Override
 	public Logger getLogger() {
 		return logger;

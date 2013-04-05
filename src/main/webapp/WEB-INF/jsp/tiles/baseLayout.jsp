@@ -31,6 +31,9 @@
 				msgDiv.open();
 			}
 			
+			function reloadKendoGrid(grid) {
+				grid.dataSource.read();
+			}
 		</script>
 	</head>
 	<body>

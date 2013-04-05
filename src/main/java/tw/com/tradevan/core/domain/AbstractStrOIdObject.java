@@ -9,7 +9,7 @@ import org.apache.commons.lang.StringUtils;
 import org.hibernate.annotations.GenericGenerator;
 
 @MappedSuperclass
-public abstract class AbstractStrOIdObject implements Identifiable<String> {
+public abstract class AbstractStrOidObject implements Identifiable<String> {
 
 	private static final long serialVersionUID = -1702181490872061369L;
 
