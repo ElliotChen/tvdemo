@@ -129,7 +129,7 @@
 			  dataType: 'json',
 			  data : {oid:dataItem.oid},
 			  success: function(data, textStatus, xhr) {
-				  showMsg(jsonMsg);
+				  showMsg(data);
 				  reloadKendoGrid(mGrid);
 			  },
 			  error: function(xhr, textStatus, errorThrown) {

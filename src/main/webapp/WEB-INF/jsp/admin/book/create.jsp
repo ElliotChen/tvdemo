@@ -4,8 +4,8 @@
 	$(document).ready(function() {
 		$("#createForm").validate({
 			rules : {
-				'name' : {required:true},
-				'year' : {required:true},
+				'oid.name' : {required:true},
+				'oid.year' : {required:true},
 				'note' : {required:true}
 			},
 			submitHandler : function(form) {

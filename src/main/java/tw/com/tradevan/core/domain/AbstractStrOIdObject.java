@@ -32,4 +32,8 @@ public abstract class AbstractStrOidObject implements Identifiable<String> {
 		
 		this.oid = oid;
 	}
+	
+	public boolean isEmptyOid() {
+		return StringUtils.isEmpty(oid);
+	}
 }

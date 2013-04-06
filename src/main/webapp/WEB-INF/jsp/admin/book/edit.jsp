@@ -4,8 +4,7 @@
 	$(document).ready(function() {
 		$("#editForm").validate({
 			rules : {
-				'name' : {required:true},
-				'year' : {required:true}
+				'note' : {required:true}
 			},
 			submitHandler : function(form) {
 				$(form).ajaxSubmit({success : ajaxEditSuccess});
@@ -19,17 +18,17 @@
 		closeEditForm(responseText); //defined by index.jsp
 	}
 </script>
-<s:form id="editForm" name="editForm" action="/admin/user!update">
-	<s:hidden name="oid" />
+<s:form id="editForm" name="editForm" action="/admin/book!update">
+	<s:hidden name="oid.name" />
+	<s:hidden name="oid.year" />
 <h3>Edit User</h3>
 <ul>
 	<li>
-		<label for="e_name">Name</label>
-		<s:textfield name="name" id="e_name" />
+		Name:${oid.name}, Year:${oid.year}
 	</li>
 	<li>
-		<label for="c_birthday">Birthday</label>
-		<s:textfield name="birthday" id="e_birthday" cssClass="date"/>
+		<label for="e_note">Note</label>
+		<s:textfield name="note" id="e_note" />
 	</li>
 	<li>
 		<input type="submit" class="k-button" value="SEND"/>

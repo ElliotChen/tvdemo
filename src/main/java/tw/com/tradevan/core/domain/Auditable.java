@@ -66,9 +66,9 @@ public interface Auditable {
 	 */
 	void setModifiedDate(final Date modifiedDate);
 	
-	
+	/*
 	Integer getVersion();
 	
 	void setVersion(Integer version);
-	
+	*/
 }

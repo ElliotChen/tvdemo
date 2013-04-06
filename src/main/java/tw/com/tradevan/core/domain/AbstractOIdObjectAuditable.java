@@ -25,10 +25,11 @@ public abstract class AbstractOidObjectAuditable extends AbstractOidObject imple
 	@Column(name = "MODIFY_DATE")
 	protected Date modifiedDate;
 	
+	/*
 	@Version
 	@Column(name = "VERSION")
 	protected Integer version;
-	
+	*/
 	@Override
 	public String getCreatedAccount() {
 		return this.createdAccount;
@@ -61,7 +62,7 @@ public abstract class AbstractOidObjectAuditable extends AbstractOidObject imple
 	public void setCreatedAccount(String createdAccount) {
 		this.createdAccount = createdAccount;
 	}
-
+	/*
 	public Integer getVersion() {
 		return version;
 	}
@@ -69,5 +70,6 @@ public abstract class AbstractOidObjectAuditable extends AbstractOidObject imple
 	public void setVersion(Integer version) {
 		this.version = version;
 	}
+	*/
 	
 }

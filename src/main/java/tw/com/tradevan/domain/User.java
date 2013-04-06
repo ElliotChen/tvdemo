@@ -72,6 +72,12 @@ public class User extends AbstractStrOidAuditable {
 	public void setGener(Gender gener) {
 		this.gener = gener;
 	}
+
+	@Override
+	public String toString() {
+		return "User [name=" + name + ", birthday=" + birthday + ", admin="
+				+ admin + ", gener=" + gener + "]";
+	}
 	
 }
 

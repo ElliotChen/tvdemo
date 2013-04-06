@@ -35,5 +35,8 @@ public abstract class AbstractSeqIdObject implements Identifiable<Long> {
 		this.oid = oid;
 	}
 
+	public boolean isEmptyOid() {
+		return oid == null || oid == 0L;
+	}
 }
 

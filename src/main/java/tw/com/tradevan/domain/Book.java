@@ -5,6 +5,8 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import org.apache.commons.lang.StringUtils;
+
 import tw.com.tradevan.core.domain.Identifiable;
 
 @Entity
@@ -35,4 +37,21 @@ public class Book implements Identifiable<BookPK> {
 		this.note = note;
 	}
 
+	@Override
+	public boolean isEmptyOid() {
+		boolean result = false;
+		if (oid == null) {
+			result = true;
+		} else if (StringUtils.isEmpty(oid.getName()) || oid.getYear() == null) {
+			result = true;
+		}
+		System.out.println(result);
+		return result;
+	}
+
+	@Override
+	public String toString() {
+		return "Book [oid=" + oid + ", note=" + note + "]";
+	}
+	
 }

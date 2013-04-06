@@ -11,4 +11,6 @@ public interface Identifiable<Oid extends Serializable> extends Serializable {
 	Oid getOid();
 	
 	void setOid(Oid oid);
+	
+	boolean isEmptyOid();
 }

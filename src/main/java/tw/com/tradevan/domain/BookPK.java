@@ -3,6 +3,7 @@ package tw.com.tradevan.domain;
 import java.io.Serializable;
 
 public class BookPK implements Serializable {
+	private static final long serialVersionUID = -2179748380685341249L;
 	private String name;
 	private Integer year;
 	

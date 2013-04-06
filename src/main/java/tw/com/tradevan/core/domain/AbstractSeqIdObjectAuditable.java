@@ -30,10 +30,11 @@ public abstract class AbstractSeqIdObjectAuditable extends AbstractSeqIdObject i
 	@Column(name = "MODIFY_DATE")
 	protected Date modifiedDate;
 	
+	/*
 	@Version
 	@Column(name = "VERSION")
 	protected Integer version;
-	
+	*/
 	@Override
 	public String getCreatedAccount() {
 		return this.createdAccount;
@@ -67,6 +68,7 @@ public abstract class AbstractSeqIdObjectAuditable extends AbstractSeqIdObject i
 		this.createdAccount = createdAccount;
 	}
 	
+	/*
 	public Integer getVersion() {
 		return version;
 	}
@@ -74,5 +76,6 @@ public abstract class AbstractSeqIdObjectAuditable extends AbstractSeqIdObject i
 	public void setVersion(Integer version) {
 		this.version = version;
 	}
+	*/
 }
 

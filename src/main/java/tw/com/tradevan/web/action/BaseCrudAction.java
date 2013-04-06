@@ -119,8 +119,10 @@ public abstract class BaseCrudAction<Entity extends Identifiable<Oid>, Oid exten
 		this.getLogger().debug("prepare : oid[{}], entity[{}]",oid, entity);
 		if (oid != null) {
 			entity = manager.findByOid(oid);
-		} else {
-			oid = manager.newOidInstance();
+		}
+		
+		//For composite key object...
+		if (entity == null) {
 			entity = manager.newEntityInstance();
 			Oid entityOid = manager.newOidInstance();
 			entity.setOid(entityOid);
@@ -181,6 +183,7 @@ public abstract class BaseCrudAction<Entity extends Identifiable<Oid>, Oid exten
 	
 	public String create() {
 		logger.debug("CREATE Entity[{}]", entity);
+		System.out.println(entity);
 		this.manager.create(entity);
 		
 		this.addActionMessage("Create Success!");

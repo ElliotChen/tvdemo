@@ -114,12 +114,8 @@ public abstract class AbstractBaseDao<T extends Identifiable<Oid>, Oid extends S
 		if (null != example) {
 			MatchMode matchMode = this.getMatchMode(likeMode);
 			criteria.add(createExample(example, matchMode));
-			if (null != example.getOid()) {
-				if (LikeMode.ANYWHERE == likeMode) {
-					criteria.add(Restrictions.like("oid", "%"+example.getOid()+"%").ignoreCase());
-				} else {
-					criteria.add(Restrictions.idEq(example.getOid()));
-				}
+			if (example.getOid()!=null && !example.isEmptyOid()) {
+				criteria.add(Restrictions.idEq(example.getOid()));
 			}
 			this.addConditions(criteria, conditions);
 			this.postCreateCriteria(criteria, example, matchMode);

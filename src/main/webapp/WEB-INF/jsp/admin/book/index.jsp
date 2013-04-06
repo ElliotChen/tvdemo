@@ -17,8 +17,8 @@
 		}).data("kendoWindow");
 		mGrid = $("#masterGrid").kendoGrid({
 			columns : [ 
-				{ field : "name" }, 
-				{ field : "year" }, 
+				{ field : "oid.name" }, 
+				{ field : "oid.year" }, 
 				{ field : "note" },
 				//{ command: ["edit", "destory"] }
 				{ command : [ {text : "Edit", click : loadEditForm},
@@ -101,7 +101,7 @@
 			  url: '${ctx}/admin/book!loadEditForm.action',
 			  type: 'POST',
 			  dataType: 'html',
-			  data : {oid:dataItem.oid},
+			  data : {'oid.name':dataItem.oid.name,'oid.year':dataItem.oid.year},
 			  success: function(data, textStatus, xhr) {
 				  editDiv.content(data);
 			  },
@@ -126,9 +126,9 @@
 			  url: '${ctx}/admin/book!delete.action',
 			  type: 'POST',
 			  dataType: 'json',
-			  data : {oid:dataItem.oid},
+			  data : {'oid.name':dataItem.oid.name,'oid.year':dataItem.oid.year},
 			  success: function(data, textStatus, xhr) {
-				  showMsg(jsonMsg);
+				  showMsg(data);
 				  reloadKendoGrid(mGrid);
 			  },
 			  error: function(xhr, textStatus, errorThrown) {
