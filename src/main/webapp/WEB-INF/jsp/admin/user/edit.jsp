@@ -28,7 +28,7 @@
 		<s:textfield name="name" id="e_name" />
 	</li>
 	<li>
-		<label for="c_birthday">Birthday</label>
+		<label for="e_birthday">Birthday</label>
 		<s:textfield name="birthday" id="e_birthday" cssClass="date"/>
 	</li>
 	<li>

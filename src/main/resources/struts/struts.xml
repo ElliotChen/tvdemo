@@ -5,6 +5,7 @@
 <struts>
 	<constant name="struts.ognl.allowStaticMethodAccess" value="true" />
 	<constant name="struts.ui.theme" value="simple" />
+	<constant name="struts.custom.i18n.resources" value="i18n" />
 	<package abstract="true" name="default" extends="struts-default">
 		<result-types>
 			<result-type name="json" class="org.apache.struts2.json.JSONResult" />

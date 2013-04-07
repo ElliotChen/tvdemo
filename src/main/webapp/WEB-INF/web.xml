@@ -9,6 +9,7 @@
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
 		    classpath:/spring/applicationContext.xml, 
+		    classpath:/spring/applicationContext-jmx.xml, 
 		    classpath:/spring/applicationContext-dao.xml,
 		    classpath:/spring/applicationContext-service.xml,
 		    classpath*:/spring/spring-action-*.xml</param-value>

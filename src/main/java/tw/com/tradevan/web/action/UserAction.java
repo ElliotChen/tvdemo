@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import tw.com.tradevan.dao.UserDao;
+import tw.com.tradevan.domain.Gender;
 import tw.com.tradevan.domain.User;
 import tw.com.tradevan.service.UserManager;
 
@@ -15,4 +16,16 @@ public class UserAction extends BaseCrudAction<User, String, UserDao, UserManage
 	public Logger getLogger() {
 		return logger;
 	}
+
+	@Override
+	protected void postLoadCreateForm() {
+		this.entity.setGender(Gender.Male);
+		this.entity.setAdmin(Boolean.FALSE);
+	}
+
+	@Override
+	protected void postLoadEditForm() {
+	}
+	
+	
 }

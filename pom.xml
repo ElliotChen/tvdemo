@@ -428,6 +428,68 @@
 			</plugin>
 		</plugins>
 	</build>
+	<profiles>
+		<profile>
+			<id>quick</id>
+			<properties>
+				<maven.test.skip>true</maven.test.skip>
+			</properties>
+		</profile>
+		<profile>
+			<id>local</id>
+			<properties>
+				<profile.folder>${basedir}/src/profile/local</profile.folder>
+			</properties>
+			<build>
+				<finalName>tvdemo-local</finalName>
+				<resources>
+					<resource>
+						<directory>${basedir}/src/main/resources</directory>
+					</resource>
+					<resource>
+						<directory>${profile.folder}/resources</directory>
+						<filtering>true</filtering>
+					</resource>
+				</resources>
+			</build>
+		</profile>
+		<profile>
+			<id>stage</id>
+			<properties>
+				<profile.folder>${basedir}/src/profile/stage</profile.folder>
+			</properties>
+			<build>
+				<finalName>tvdemo-stage</finalName>
+				<resources>
+					<resource>
+						<directory>${basedir}/src/main/resources</directory>
+					</resource>
+					<resource>
+						<directory>${profile.folder}/resources</directory>
+						<filtering>true</filtering>
+					</resource>
+				</resources>
+			</build>
+		</profile>
+		<profile>
+			<id>prod</id>
+			<properties>
+				<profile.folder>${basedir}/src/profile/prod</profile.folder>
+			</properties>
+			<build>
+				<finalName>tvdemo-prod</finalName>
+				<resources>
+					<resource>
+						<directory>${basedir}/src/main/resources</directory>
+					</resource>
+					<resource>
+						<directory>${profile.folder}/resources</directory>
+						<filtering>true</filtering>
+					</resource>
+				</resources>
+			</build>
+		</profile>
+	</profiles>
 	<repositories>
 		<repository>
 			<id>jboss-public-repository-group</id>

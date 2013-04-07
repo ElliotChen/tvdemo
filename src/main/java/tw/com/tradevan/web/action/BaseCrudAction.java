@@ -142,7 +142,7 @@ public abstract class BaseCrudAction<Entity extends Identifiable<Oid>, Oid exten
 	}
 	
 	protected void postPrepare() {
-		//dose nothing.
+		//do nothing.
 	}
 	
 	/*******************************************************************/
@@ -154,15 +154,6 @@ public abstract class BaseCrudAction<Entity extends Identifiable<Oid>, Oid exten
 	}
 
 	public String ajaxPageSearch() {
-		/*
-		List<User> list = new ArrayList<User>();
-		list.add(new User("A", new Date()));
-		list.add(new User("B", new Date()));
-		DataSourceResult dsr = new DataSourceResult();
-		dsr.setTotal(1000);
-		dsr.setData(list);
-		
-		*/
 		Page<Entity> sp = initPage();
 		sp = this.manager.listByPage(sp);
 		DataSourceResult dsr = new DataSourceResult();
@@ -172,12 +163,13 @@ public abstract class BaseCrudAction<Entity extends Identifiable<Oid>, Oid exten
 		return JSON;
 	}
 	
-	
 	public String loadCreateForm() {
+		postLoadCreateForm();
 		return "create";
 	}
 	
 	public String loadEditForm() {
+		postLoadEditForm();
 		return "edit";
 	}
 	
@@ -226,5 +218,31 @@ public abstract class BaseCrudAction<Entity extends Identifiable<Oid>, Oid exten
 		}
 		
 		return sp;
+	}
+	
+	protected void postLoadCreateForm() {
+		//please override for setting default value
+	}
+	
+	protected void postLoadEditForm() {
+		//please override for setting default value
+	}
+	/*******************************************************************/
+	/**                   AJAX edit Action Method                     **/
+	/*******************************************************************/
+	public String ajaxIndex() {
+		return "ajaxIndex";
+	}
+	
+	public String ajaxLoadCreateForm() {
+		postLoadCreateForm();
+		this.setJsonObject(entity);
+		return JSON;
+	}
+	
+	public String ajaxLoadEditForm() {
+		postLoadEditForm();
+		this.setJsonObject(entity);
+		return JSON;
 	}
 }

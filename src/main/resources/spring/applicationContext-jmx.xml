@@ -7,9 +7,22 @@
 	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 	http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd">
 
-	<context:property-placeholder location="classpath*:/system.properties" />
+	<context:mbean-export registration="replaceExisting" />
+	<bean id="autostart" class="tw.com.tradevan.core.jmx.AutostartHttpAdaptor">
+		<property name="port" value="8099" />
+		<property name="processor">
+			<bean id="xsltProcessor" class="mx4j.tools.adaptor.http.XSLTProcessor" />
+		</property>
+	</bean>
 	
-	<context:annotation-config />
-	<context:component-scan base-package="tw.com.tradevan"/>
+	<!-- 
+	<context:mbean-server id="mxserver" />
+	<bean id="httpAdaptor" class="mx4j.tools.adaptor.http.HttpAdaptor" init-method="start">
+		<property name="port" value="8099" />
+		<property name="processor"> 
+			<bean id="xsltProcessor" class="mx4j.tools.adaptor.http.XSLTProcessor" />
+		</property>
+	</bean>
+	 -->
 	
 </beans>

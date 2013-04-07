@@ -12,5 +12,6 @@ public interface Identifiable<Oid extends Serializable> extends Serializable {
 	
 	void setOid(Oid oid);
 	
+	//for composite key
 	boolean isEmptyOid();
 }

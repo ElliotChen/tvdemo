@@ -78,6 +78,16 @@
 				$(form).ajaxSubmit({success:ajaxCreateSuccess});
 			}
 		});
+		
+		$("#editForm").validate({
+			rules : {
+				'name' : {required:true},
+				'birthday' : {required:true}
+			},
+			submitHandler : function(form) {
+				$(form).ajaxSubmit({success : ajaxEditSuccess});
+			}
+		});
 
 		/* Date Column */
 		$(".date").kendoDatePicker({format: "yyyy/MM/dd"});
@@ -88,20 +98,20 @@
 		//var kw = $("#createForm").data("kendoWindow");
 		
 		$.ajax({
-			  url: '${ctx}/admin/user!loadCreateForm.action',
+			  url: '${ctx}/admin/user!ajaxLoadCreateForm.action',
 			  type: 'POST',
-			  dataType: 'html',
+			  dataType: 'json',
 			  success: function(data, textStatus, xhr) {
 				  fillCreateForm(data);
 			  },
 			  error: function(xhr, textStatus, errorThrown) {
-				showMsg(xhr);
+				  alert(xhr);
 			  }
 			});
 	}
 	
 	function fillCreateForm(entity) {
-		$("#createForm").reset();
+		//$("#createForm").reset();
 		
 		$("#c_name").val(entity.name);
 		$("#c_birthday").val(entity.birthday);
@@ -115,22 +125,22 @@
 	
 	function closeCreateForm(jsonMsg) {
 		createDiv.close();
-		showMsg(jsonMsg);
+		alert(jsonMsg);
 		reloadKendoGrid(mGrid);
 	}
 	
 	function loadEditForm(e) {
 		var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
 		$.ajax({
-			  url: '${ctx}/admin/user!loadEditForm.action',
+			  url: '${ctx}/admin/user!ajaxLoadEditForm.action',
 			  type: 'POST',
-			  dataType: 'html',
+			  dataType: 'json',
 			  data : {oid:dataItem.oid},
 			  success: function(data, textStatus, xhr) {
-				  editDiv.content(data);
+				  fillEditForm(data);
 			  },
 			  error: function(xhr, textStatus, errorThrown) {
-				  editDiv.content(xhr);
+				  alert(xhr);
 			  }
 			});
 		
@@ -138,9 +148,22 @@
 		editDiv.open();
 	}
 	
+	function fillEditForm(entity) {
+		$("#e_oid").val(entity.oid);
+		$("#e_name").val(entity.name);
+		$("#e_birthday").val(entity.birthday);
+		
+		editDiv.center();
+		editDiv.open();
+	}
+	
+	function ajaxEditSuccess(responseText, statusText, xhr, $form) {
+		closeEditForm(responseText); //defined by index.jsp
+	}
+	
 	function closeEditForm(jsonMsg) {
 		editDiv.close();
-		showMsg(jsonMsg);
+		alert(jsonMsg);
 		reloadKendoGrid(mGrid);
 	}
 	
@@ -189,7 +212,7 @@
 
 	<div id="createDiv" class="editForm">
 		<form id="createForm" method="POST" name="createForm" action="${ctx}/admin/user!create.action">
-			<h3>Create User</h3>
+			<h3>Ajax Create User</h3>
 			<ul>
 				<li>
 					<label for="c_name">Name</label>
@@ -197,7 +220,7 @@
 				</li>
 				<li>
 					<label for="c_birthday">Birthday</label>
-					<input type="text" name="birthday" id="c_birthday" cssClass="date"/>
+					<input type="text" name="birthday" id="c_birthday" class="date"/>
 				</li>
 				<li>
 					<input type="submit" class="k-button" value="SEND"/>
@@ -206,5 +229,24 @@
 			</ul>
 		</form>
 	</div>
-	<div id="editDiv" class="editForm">should not look this!!!!</div>
+	<div id="editDiv" class="editForm">
+		<form id="editForm" method="POST" name="editForm" action="${ctx}/admin/user!update.action">
+			<input type="hidden" id="e_oid" name="oid" />
+			<h3>Ajax Edit User</h3>
+			<ul>
+				<li>
+					<label for="e_name">Name</label>
+					<input type="text" name="name" id="e_name" />
+				</li>
+				<li>
+					<label for="e_birthday">Birthday</label>
+					<input type="text" name="birthday" id="e_birthday" class="date"/>
+				</li>
+				<li>
+					<input type="submit" class="k-button" value="SEND"/>
+					<input type="reset" class="k-button" value="RESET"/>
+				</li>
+			</ul>
+		</form>
+	</div>
 </div>

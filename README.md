@@ -1,0 +1,1 @@
+run "mvn -Pquick,${profile} package"

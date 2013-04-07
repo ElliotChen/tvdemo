@@ -10,6 +10,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.Type;
+
 import tw.com.tradevan.core.domain.AbstractStrOidAuditable;
 
 @Entity
@@ -24,13 +26,13 @@ public class User extends AbstractStrOidAuditable {
 	@Column(name = "BIRTHDAY")
 	private Date birthday;
 
-	
+	@Type(type = "yes_no")
 	@Column(name = "ADMIN")
 	private Boolean admin;
 	
 	@Enumerated(EnumType.STRING)
 	@Column(name = "GENDER")
-	private Gender gener;
+	private Gender gender;
 	public User() {
 		super();
 	}
@@ -65,19 +67,20 @@ public class User extends AbstractStrOidAuditable {
 		this.admin = admin;
 	}
 
-	public Gender getGener() {
-		return gener;
+	public Gender getGender() {
+		return gender;
 	}
 
-	public void setGener(Gender gener) {
-		this.gener = gener;
+	public void setGender(Gender gender) {
+		this.gender = gender;
 	}
 
 	@Override
 	public String toString() {
 		return "User [name=" + name + ", birthday=" + birthday + ", admin="
-				+ admin + ", gener=" + gener + "]";
+				+ admin + ", gender=" + gender + "]";
 	}
+	
 	
 }
 

@@ -31,6 +31,14 @@
 		<s:textfield name="birthday" id="c_birthday" cssClass="date"/>
 	</li>
 	<li>
+		<label for="c_gender">Gender</label>
+		<s:select id="c_gender" name="gender" list="@tw.com.tradevan.domain.Gender@values()" listValue="%{getText('enum.Gender.'+toString())}"/>
+	</li>
+	<li>
+		<label for="c_admin">Admin</label>
+		<s:radio id="c_admin" name="admin" list="#{'true':'Yes','false':'No'}"/>
+	</li>
+	<li>
 		<input type="submit" class="k-button" value="SEND"/>
 		<input type="reset" class="k-button" value="RESET"/>
 	</li>

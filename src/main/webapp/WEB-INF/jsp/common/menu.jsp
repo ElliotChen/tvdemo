@@ -24,6 +24,7 @@
 	<li>Admin
 		<ul>
 			<li><a href="javascript:loadContent('main', '${ctx}/admin/user!index.action');">User</a></li>
+			<li><a href="javascript:loadContent('main', '${ctx}/admin/user!ajaxIndex.action');">AJAX User</a></li>
 			<li><a href="javascript:loadContent('main', '${ctx}/admin/book!index.action');">Book</a></li>
 		</ul>
 	</li>

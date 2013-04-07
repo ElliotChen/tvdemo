@@ -4,6 +4,7 @@
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/profile/local/resources"/>
         <property name="context-root" value="tvdemo"/>
         <property name="java-output-path" value="/tvdemo/target/classes"/>
     </wb-module>
