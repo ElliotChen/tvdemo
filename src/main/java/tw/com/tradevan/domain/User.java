@@ -27,11 +27,11 @@ public class User extends AbstractStrOidAuditable {
 	private Date birthday;
 
 	@Type(type = "yes_no")
-	@Column(name = "ADMIN")
+	@Column(name = "ADMIN", length=1)
 	private Boolean admin;
 	
 	@Enumerated(EnumType.STRING)
-	@Column(name = "GENDER")
+	@Column(name = "GENDER", length=6)
 	private Gender gender;
 	public User() {
 		super();

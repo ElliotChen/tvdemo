@@ -9,6 +9,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import tw.com.tradevan.core.util.ApplicationContextHolder;
 import tw.com.tradevan.dao.BookDao;
 import tw.com.tradevan.domain.Book;
 import tw.com.tradevan.domain.BookPK;
@@ -23,6 +24,7 @@ public class BookDaoImplTest {
 	@Test
 	@Rollback(false)
 	public void test() {
+		Assert.assertNotNull(ApplicationContextHolder.getApplicationContext());
 		BookPK pk = new BookPK("Book1",2012);
 		/*
 		Book book = new Book();
